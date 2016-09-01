@@ -1,14 +1,16 @@
 input[type="text"]{
-
   display: block;
   color:black;
-height: 3em;
+  height: 3em;
+  width: 100%;
 }
+
 .nav-tabs {
     border-bottom: 1px solid #151313 !important;
         background-color: rgba(0, 0, 0, 0.33);
             padding: 5px;
 }
+
 li.btn {
     height: 49px;
 
