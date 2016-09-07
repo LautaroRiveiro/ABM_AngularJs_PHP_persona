@@ -54,45 +54,51 @@
 
 			<form id="FormIngreso"  enctype="multipart/form-data" >
 
-				<input type="text" name="nombre" ng-model="persona.nombre" placeholder="ingrese nombre" value="" />
+				<input type="text" name="nombre" ng-model="persona.nombre" placeholder="Ingrese Nombre" value="" />
 				<span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>				
-
-				<input type="text" name="apellido" ng-model="persona.apellido" placeholder="ingrese apellido" value="" />
+				<br>
+				<input type="text" name="apellido" ng-model="persona.apellido" placeholder="Ingrese Apellido" value="" />
 				<span id="lblApellido" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-
+				<br>
 				<input type="number" name="edad" id="edad" ng-model="persona.edad" placeholder="Ingrese Edad" value=""/>
 				<span id="lblEdad" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-				
-				<span style="color: black;">Masculino: </span><input type="radio" name="sexo" value="M" ng-model="persona.sexo"/>
-				<span style="color: black;">Femenino: </span><input type="radio" name="sexo" value="F" ng-model="persona.sexo"/>
-
+				<br>
+				<fieldset>
+					<legend></legend>
+					<span style="color: black;">Masculino: </span><input type="radio" name="sexo" value="M" ng-model="persona.sexo"/>
+					<span style="color: black;">Femenino: </span><input type="radio" name="sexo" value="F" ng-model="persona.sexo"/>
+				</fieldset>
+				<br>
 				<input type="email" name="correo" id="correo" ng-model="persona.correo" placeholder="Correo electrónico" value=""/>
 				<span id="lblCorreo" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-
+				<br>
 				<select ng-model="persona.estadoCivil">
 					<option value="Soltero">Soltero</option>
 					<option value="Casado">Casado</option>
 					<option value="Divorciado">Divorciado</option>
 					<option value="Viudo">Viudo</option>
 				</select>
-
+				<br>
 				<input type="date" name="fechaNacimiento" id="fechaNacimiento" ng-model="persona.fechaNacimiento" value=""/>
 				<span id="lblfechaNacimiento" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-
-				<span style="color: black;">C</span><input type="checkbox" name="lenguajes" value="C" ng-model="persona.lenguajes"/>
-				<span style="color: black;">C#</span><input type="checkbox" name="lenguajes" value="C#" ng-model="persona.lenguajes"/>
-				<span style="color: black;">JS</span><input type="checkbox" name="lenguajes" value="JS" ng-model="persona.lenguajes"/>
-				<span style="color: black;">PHP</span><input type="checkbox" name="lenguajes" value="PHP" ng-model="persona.lenguajes"/>
-				<span style="color: black;">VBNet</span><input type="checkbox" name="lenguajes" value="VBNet" ng-model="persona.lenguajes"/>
-
+				<br>
+				<fieldset id="chkLenguajes">
+					<legend>Lenguajes de programación</legend>
+					<label style="color: black;">C</label><input type="checkbox" name="lenguajes" value="C" ng-model="persona.lenguajes[0]"/>
+					<label style="color: black;">C#</label><input type="checkbox" name="lenguajes" value="C#" ng-model="persona.lenguajes[1]"/>
+					<label style="color: black;">JS</label><input type="checkbox" name="lenguajes" value="JS" ng-model="persona.lenguajes[2]"/>
+					<label style="color: black;">PHP</label><input type="checkbox" name="lenguajes" value="PHP" ng-model="persona.lenguajes[3]"/>
+					<label style="color: black;">VBNet</label><input type="checkbox" name="lenguajes" value="VBNet" ng-model="persona.lenguajes[4]"/>
+				</fieldset>
+				<br>
 				<input type="password" name="clave" id="clave" ng-model="persona.clave" placeholder="Ingrese Clave" value=""/>
 				<span id="lblClave" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-
+				<br>
 				<input type="password" name="confirmarClave" id="confirmarClave" ng-model="persona.confirmarClave" placeholder="Reingrese Clave" value=""/>
 				<span id="lblconfirmarClave" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-
+				<br>
 				<span style="color: black;" ng-show="persona.clave != persona.confirmarClave">Las claves no coinciden</span>
-
+				<h3 style="color:black">{{persona.lenguajes}}</h3>
 				<!--
 				<input type="text" name="dni" ng-model="persona.dni" placeholder="ingrese dni" value=""     /> 
 				<span id="lblDni" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
