@@ -12,9 +12,9 @@ app.controller('controlAlta', function($scope, $http) {
 
     //Inicio las variables
     $scope.persona = {};
-    $scope.persona.nombre = "natalia" ;
-    $scope.persona.apellido = "natalia" ;
-    $scope.persona.dni = "12312312" ;
+    $scope.persona.nombre = "" ;
+    $scope.persona.apellido = "" ;
+    $scope.persona.dni = "" ;
     $scope.persona.correo;
     $scope.persona.estadoCivil;
     $scope.persona.fechaNacimiento;

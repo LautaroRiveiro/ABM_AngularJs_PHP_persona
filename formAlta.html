@@ -50,38 +50,50 @@
 			<center> <h1>Datos {{DatoTest}}</h1>   </center>     
 		</div>
 		<div class="CajaInicio animated bounceInRight">
-			<h1> <!--?php echo $titulo; ?-->titulo </h1>
+			<h1> <!--?php echo $titulo; ?-->Formulario </h1>
 
-			<form id="FormIngreso"  enctype="multipart/form-data" >
+			<form id="FormIngreso" name="formAlta" enctype="multipart/form-data" novalidate >
 
-				<input type="text" name="nombre" ng-model="persona.nombre" placeholder="Ingrese Nombre" value="" />
-				<span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>				
-				<br>
-				<input type="text" name="apellido" ng-model="persona.apellido" placeholder="Ingrese Apellido" value="" />
-				<span id="lblApellido" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-				<br>
-				<input type="number" name="edad" id="edad" ng-model="persona.edad" placeholder="Ingrese Edad" value=""/>
-				<span id="lblEdad" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-				<br>
+                <!-- NOMBRE -->
+				<input type="text" name="nombre" ng-model="persona.nombre" placeholder="Ingrese Nombre" value="" required maxlength=30/>
+				<span id="lblNombre" class="asterisco" ng-if="formAlta.nombre.$dirty && formAlta.nombre.$invalid">* Este campo es obligatorio</span>				
+				<br><br>
+				<!-- APELLIDO -->
+				<input type="text" name="apellido" ng-model="persona.apellido" placeholder="Ingrese Apellido" required maxlength=30/>
+				<span id="lblApellido" class="asterisco" ng-if="formAlta.apellido.$dirty && formAlta.apellido.$invalid">* Este campo es obligatorio</span>
+				<br><br>
+				<!-- EDAD -->
+				<input type="number" name="edad" id="edad" style="color:black;" ng-model="persona.edad" placeholder="Ingrese Edad" value="" required/>
+				<span id="lblEdad" class="asterisco" ng-if="formAlta.edad.$dirty && formAlta.edad.$invalid">* Este campo es obligatorio</span>
+				<br><br>
+				<!-- SEXO -->
 				<fieldset>
-					<legend></legend>
-					<span style="color: black;">Masculino: </span><input type="radio" name="sexo" value="M" ng-model="persona.sexo"/>
+					<span style="color: black;">Masculino: </span><input type="radio" name="sexo" value="M" ng-model="persona.sexo" required/>
 					<span style="color: black;">Femenino: </span><input type="radio" name="sexo" value="F" ng-model="persona.sexo"/>
+					<span class="asterisco" ng-if="formAlta.sexo.$invalid">* Este campo es obligatorio</span>
+				    <br>
 				</fieldset>
 				<br>
-				<input type="email" name="correo" id="correo" ng-model="persona.correo" placeholder="Correo electrónico" value=""/>
-				<span id="lblCorreo" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-				<br>
-				<select ng-model="persona.estadoCivil">
-					<option value="Soltero">Soltero</option>
+				<!-- E MAIL -->
+				<input type="email" name="correo" id="correo" style="color:black;" ng-model="persona.correo" placeholder="Correo electrónico" required/>
+				<span class="asterisco" ng-if="formAlta.correo.$dirty && formAlta.correo.$invalid">
+				    <span ng-show="formAlta.correo.$error.required">* Este campo es obligatorio</span>
+				    <span ng-show="formAlta.correo.$error.email">* El email ingresado no es válido</span>
+				</span>
+				<br><br>
+				<!-- ESTADO CIVIL -->
+				<select ng-model="persona.estadoCivil" style="background-color:black; color: white;">
+					<option value="Soltero" selected="selected">Soltero</option>
 					<option value="Casado">Casado</option>
 					<option value="Divorciado">Divorciado</option>
 					<option value="Viudo">Viudo</option>
 				</select>
-				<br>
-				<input type="date" name="fechaNacimiento" id="fechaNacimiento" ng-model="persona.fechaNacimiento" value=""/>
-				<span id="lblfechaNacimiento" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-				<br>
+				<br><br>
+				<!-- FECHA DE NACIMIENTO -->
+				<input type="date" name="fechaNacimiento" style="color:black;" id="fechaNacimiento" ng-model="persona.fechaNacimiento" value="" required/>
+				<span class="asterisco" ng-if="formAlta.fechaNacimiento.$dirty && formAlta.fechaNacimiento.$invalid">* Este campo es obligatorio</span>
+				<br><br>
+				<!-- LENGUAJES -->
 				<fieldset id="chkLenguajes">
 					<legend>Lenguajes de programación</legend>
 					<label style="color: black;">C</label><input type="checkbox" name="lenguajes" value="C" ng-model="persona.lenguajes[0]"/>
@@ -91,11 +103,12 @@
 					<label style="color: black;">VBNet</label><input type="checkbox" name="lenguajes" value="VBNet" ng-model="persona.lenguajes[4]"/>
 				</fieldset>
 				<br>
+				<!-- PASSWORD -->
 				<input type="password" name="clave" id="clave" ng-model="persona.clave" placeholder="Ingrese Clave" value=""/>
-				<span id="lblClave" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
+				<span id="lblClave" class="asterisco">*</span>
 				<br>
 				<input type="password" name="confirmarClave" id="confirmarClave" ng-model="persona.confirmarClave" placeholder="Reingrese Clave" value=""/>
-				<span id="lblconfirmarClave" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
+				<span id="lblconfirmarClave" class="asterisco">*</span>
 				<br>
 				<span style="color: black;" ng-show="persona.clave != persona.confirmarClave">Las claves no coinciden</span>
 				<h3 style="color:black">{{persona.lenguajes}}</h3>
@@ -114,7 +127,7 @@
 				<p style="  color: black;">*La foto se actualiza al guardar.</p>
 				-->
 
-				<a class="btn btn-info " name="guardar" ng-click="Guardar()" ><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</a>
+				<button class="btn btn-info " name="guardar" ng-click="Guardar()" ng-disabled="formAlta.$invalid"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
 					
 				<input type="hidden" value="" id="idParaModificar" name="agregar" />
 				<input type="hidden" value="" id="hdnAgregar" name="agregar" />
