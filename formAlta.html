@@ -55,80 +55,110 @@
 			<form id="FormIngreso" name="formAlta" enctype="multipart/form-data" novalidate >
 
                 <!-- NOMBRE -->
-				<input type="text" name="nombre" ng-model="persona.nombre" placeholder="Ingrese Nombre" value="" required maxlength=30/>
-				<span id="lblNombre" class="asterisco" ng-if="formAlta.nombre.$dirty && formAlta.nombre.$invalid">* Este campo es obligatorio</span>				
-				<br><br>
+                <div class="form-group" ng-class="{'has-error has-feedback': !ValidarText('nombre'), 'has-success has-feedback': formAlta.nombre.$valid}">
+					<label for="nombre" class="control-label">Nombre</label>
+					<input type="text" class="form-control" name="nombre" id="nombre" ng-model="persona.nombre" placeholder="Ingrese Nombre"required maxlength=30/>
+					<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove': !ValidarText('nombre'), 'glyphicon-ok': formAlta.nombre.$valid}"></span>
+					<small class="help-block" ng-if="!ValidarText('nombre')">* Este campo es obligatorio</small>			
+				</div>
+
 				<!-- APELLIDO -->
-				<input type="text" name="apellido" ng-model="persona.apellido" placeholder="Ingrese Apellido" required maxlength=30/>
-				<span id="lblApellido" class="asterisco" ng-if="formAlta.apellido.$dirty && formAlta.apellido.$invalid">* Este campo es obligatorio</span>
-				<br><br>
+				<div class="form-group" ng-class="{'has-error has-feedback': !ValidarText('apellido'), 'has-success has-feedback': formAlta.apellido.$valid}">
+					<label for="apellido" class="control-label">Apellido</label>
+					<input type="text" class="form-control" name="apellido" id="apellido" ng-model="persona.apellido" placeholder="Ingrese Apellido"required maxlength=30/>
+					<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove': !ValidarText('apellido'), 'glyphicon-ok': formAlta.apellido.$valid}"></span>
+					<small class="help-block" ng-if="!ValidarText('apellido')">* Este campo es obligatorio</small>
+				</div>
+
 				<!-- EDAD -->
-				<input type="number" name="edad" id="edad" style="color:black;" ng-model="persona.edad" placeholder="Ingrese Edad" value="" required/>
-				<span id="lblEdad" class="asterisco" ng-if="formAlta.edad.$dirty && formAlta.edad.$invalid">* Este campo es obligatorio</span>
-				<br><br>
+				<div class="form-group" ng-class="{'has-error has-feedback': !ValidarText('edad'), 'has-success has-feedback': formAlta.edad.$valid}">
+					<label for="edad" class="control-label">Edad</label>
+					<input type="number" class="form-control" name="edad" id="edad" ng-model="persona.edad" placeholder="Ingrese Edad" required min=1 max=99/>
+					<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove': !ValidarText('edad'), 'glyphicon-ok': formAlta.edad.$valid}"></span>
+					<small class="help-block" ng-if="formAlta.edad.$error.required && formAlta.edad.$dirty">* Este campo es obligatorio</small>
+					<small class="help-block" ng-if="formAlta.edad.$error.number || formAlta.edad.$error.max || formAlta.edad.$error.min">* Debe ingresar un número menor entre 1 y 99</small>
+				</div>
+
 				<!-- SEXO -->
-				<fieldset>
-					<span style="color: black;">Masculino: </span><input type="radio" name="sexo" value="M" ng-model="persona.sexo" required/>
-					<span style="color: black;">Femenino: </span><input type="radio" name="sexo" value="F" ng-model="persona.sexo"/>
-					<span class="asterisco" ng-if="formAlta.sexo.$invalid">* Este campo es obligatorio</span>
-				    <br>
-				</fieldset>
-				<br>
+				<div class="form-group">
+					<label class="control-label">Sexo (VER DE VALIDAR QUE SE ELIJA UNA OPCIÓN)</label>
+					<br>
+					<label class="radio-inline"><input type="radio" name="sexo" value="M" ng-model="persona.sexo" required/>Masculino</label>
+					<label class="radio-inline"><input type="radio" name="sexo" value="F" ng-model="persona.sexo"/>Femenino</label>
+					<pre>{{formAlta.sexo | json}}</pre>
+				</div>
+
 				<!-- E MAIL -->
-				<input type="email" name="correo" id="correo" style="color:black;" ng-model="persona.correo" placeholder="Correo electrónico" required/>
-				<span class="asterisco" ng-if="formAlta.correo.$dirty && formAlta.correo.$invalid">
-				    <span ng-show="formAlta.correo.$error.required">* Este campo es obligatorio</span>
-				    <span ng-show="formAlta.correo.$error.email">* El email ingresado no es válido</span>
-				</span>
-				<br><br>
+				<div class="form-group" ng-class="{'has-error has-feedback': !ValidarText('correo'), 'has-success has-feedback': formAlta.correo.$valid}">
+					<label for="correo" class="control-label">Correo</label>
+					<input type="email" class="form-control" name="correo" id="correo" ng-model="persona.correo" placeholder="Correo electrónico" required/>
+					<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove': !ValidarText('correo'), 'glyphicon-ok': formAlta.correo.$valid}"></span>
+					<span ng-if="!ValidarText('correo')">
+					    <small class="help-block" ng-show="formAlta.correo.$error.required">* Este campo es obligatorio</small>
+					    <small class="help-block" ng-show="formAlta.correo.$error.email">* El email ingresado no es válido</small>
+					</span>
+				</div>
+				
 				<!-- ESTADO CIVIL -->
-				<select ng-model="persona.estadoCivil" style="background-color:black; color: white;">
-					<option value="Soltero" selected="selected">Soltero</option>
-					<option value="Casado">Casado</option>
-					<option value="Divorciado">Divorciado</option>
-					<option value="Viudo">Viudo</option>
-				</select>
-				<br><br>
+				<div class="form-group">
+					<label for="estadoCivil" class="control-label">Estado Civil (VER DE VALIDAR QUE SE ELIJA UNA OPCIÓN)</label>
+					<select id="estadoCivil" name="estadoCivil" class="form-control" ng-model="persona.estadoCivil">
+						<option value="Soltero" selected>Soltero</option>
+						<option value="Casado">Casado</option>
+						<option value="Divorciado">Divorciado</option>
+						<option value="Viudo">Viudo</option>
+					</select>
+					-- Estado: {{persona.estadoCivil}} --
+				</div>
+				
 				<!-- FECHA DE NACIMIENTO -->
-				<input type="date" name="fechaNacimiento" style="color:black;" id="fechaNacimiento" ng-model="persona.fechaNacimiento" value="" required/>
-				<span class="asterisco" ng-if="formAlta.fechaNacimiento.$dirty && formAlta.fechaNacimiento.$invalid">* Este campo es obligatorio</span>
-				<br><br>
+				<div class="form-group" ng-class="{'has-error has-feedback': formAlta.fechaNacimiento.$touched && formAlta.fechaNacimiento.$viewValue == '' || formAlta.fechaNacimiento.$error.date, 'has-success has-feedback': formAlta.fechaNacimiento.$valid}">
+					<label for="fechaNacimiento" class="control-label">Fecha de nacimiento</label>
+					<input type="date" class="form-control" name="fechaNacimiento" id="fechaNacimiento" ng-model="persona.fechaNacimiento" required/>
+					<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove': !ValidarText('fechaNacimiento'), 'glyphicon-ok': formAlta.fechaNacimiento.$valid}"></span>
+					<small class="help-block" ng-if="formAlta.fechaNacimiento.$touched && formAlta.fechaNacimiento.$viewValue == '' || formAlta.fechaNacimiento.$error.date">* Este campo es obligatorio</small>
+					<!-- <pre>{{formAlta.fechaNacimiento | json}}</pre> -->
+				</div>
+
 				<!-- LENGUAJES -->
-				<fieldset id="chkLenguajes">
-					<legend>Lenguajes de programación</legend>
-					<label style="color: black;">C</label><input type="checkbox" name="lenguajes" value="C" ng-model="persona.lenguajes[0]"/>
-					<label style="color: black;">C#</label><input type="checkbox" name="lenguajes" value="C#" ng-model="persona.lenguajes[1]"/>
-					<label style="color: black;">JS</label><input type="checkbox" name="lenguajes" value="JS" ng-model="persona.lenguajes[2]"/>
-					<label style="color: black;">PHP</label><input type="checkbox" name="lenguajes" value="PHP" ng-model="persona.lenguajes[3]"/>
-					<label style="color: black;">VBNet</label><input type="checkbox" name="lenguajes" value="VBNet" ng-model="persona.lenguajes[4]"/>
-				</fieldset>
-				<br>
+				<div class="form-group">
+					<label class="control-label">Lenguajes de programación ( VEEER CÓMO HACER SI QUIERO QUE OBLIGATORIAMENTE ELIJA AL MENOS UNO )</label>
+				</div>
+				<div class="checkbox" name="lenguajes">
+					<label class="checkbox-inline"><input type="checkbox" name="lenguajes" value="C" ng-model="persona.lenguajes[0]"/>C</label>
+					<label class="checkbox-inline"><input type="checkbox" name="lenguajes" value="C#" ng-model="persona.lenguajes[1]"/>C#</label>
+					<label class="checkbox-inline"><input type="checkbox" name="lenguajes" value="JS" ng-model="persona.lenguajes[2]"/>JS</label>
+					<label class="checkbox-inline"><input type="checkbox" name="lenguajes" value="PHP" ng-model="persona.lenguajes[3]"/>PHP</label>
+					<label class="checkbox-inline"><input type="checkbox" name="lenguajes" value="VBNet" ng-model="persona.lenguajes[4]"/>VBNet</label>
+				</div>	
+				<span>{{persona.lenguajes}}</span><br>
+
 				<!-- PASSWORD -->
-				<input type="password" name="clave" id="clave" ng-model="persona.clave" placeholder="Ingrese Clave" value=""/>
-				<span id="lblClave" class="asterisco">*</span>
-				<br>
-				<input type="password" name="confirmarClave" id="confirmarClave" ng-model="persona.confirmarClave" placeholder="Reingrese Clave" value=""/>
-				<span id="lblconfirmarClave" class="asterisco">*</span>
-				<br>
-				<span style="color: black;" ng-show="persona.clave != persona.confirmarClave">Las claves no coinciden</span>
-				<h3 style="color:black">{{persona.lenguajes}}</h3>
-				<!--
-				<input type="text" name="dni" ng-model="persona.dni" placeholder="ingrese dni" value=""     /> 
-				<span id="lblDni" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-				<p style='color: black;'>*El DNI no se puede modificar.</p> ": "" ; ?>
-				-->
-								
-				<input type="hidden" name="idOculto" id="id" value="" />
+                <div class="form-group" ng-class="{'has-error has-feedback': !ValidarText('clave'), 'has-success has-feedback': formAlta.clave.$valid}">
+					<label for="clave" class="control-label">Clave</label>
+					<input type="password" class="form-control" name="clave" id="clave" ng-model="persona.clave" placeholder="Ingrese Clave" required minlength=4/>
+					<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove': !ValidarText('clave'), 'glyphicon-ok': formAlta.clave.$valid}"></span>
+					<span ng-if="!ValidarText('clave')">
+						<small class="help-block" ng-show="formAlta.clave.$error.required">* Este campo es obligatorio</small>
+						<small class="help-block" ng-show="formAlta.clave.$error.minlength">* Clave demasiado corta (mínimo 4 caracteres)</small>
+					</span>
+				</div>
+				<div class="form-group" ng-class="{'has-error has-feedback': !ValidarText('confirmarClave'), 'has-success has-feedback': formAlta.confirmarClave.$valid}">
+					<input type="password" class="form-control" name="confirmarClave" id="confirmarClave" ng-model="persona.confirmarClave" placeholder="Reingrese Clave" required minlength=4 ng-disabled="formAlta.clave.$invalid"/>
+					<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove': !ValidarText('confirmarClave'), 'glyphicon-ok': formAlta.confirmarClave.$valid}"></span>
+					<small class="help-block" ng-show="formAlta.confirmarClave.$dirty && (persona.clave != persona.confirmarClave)">Las claves no coinciden</small>
+				</div>
 
 				<!--
 				<input type="file" name="foto" />
-
 				<img  src="fotos/pordefecto.png" class="fotoform" id="foto"/>
 				<p style="  color: black;">*La foto se actualiza al guardar.</p>
 				-->
 
-				<button class="btn btn-info " name="guardar" ng-click="Guardar()" ng-disabled="formAlta.$invalid"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
-					
+				<button class="btn btn-info " name="guardar" ng-click="Guardar()" ng-disabled="formAlta.$invalid || (persona.clave != persona.confirmarClave)"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+				<pre>{{persona | json}}</pre>
+
+				<input type="hidden" name="idOculto" id="id" value="" />					
 				<input type="hidden" value="" id="idParaModificar" name="agregar" />
 				<input type="hidden" value="" id="hdnAgregar" name="agregar" />
 			</form>

@@ -12,9 +12,9 @@ app.controller('controlAlta', function($scope, $http) {
 
     //Inicio las variables
     $scope.persona = {};
-    $scope.persona.nombre = "" ;
-    $scope.persona.apellido = "" ;
-    $scope.persona.dni = "" ;
+    $scope.persona.nombre;
+    $scope.persona.apellido;
+    $scope.persona.dni;
     $scope.persona.correo;
     $scope.persona.estadoCivil;
     $scope.persona.fechaNacimiento;
@@ -24,6 +24,10 @@ app.controller('controlAlta', function($scope, $http) {
     $scope.persona.clave;
     $scope.persona.confirmarClave;
 
+
+    $scope.ValidarText = function(name){
+        return !($scope.formAlta[name].$dirty && $scope.formAlta[name].$invalid);
+    }
 
     $scope.Guardar=function(){
 
