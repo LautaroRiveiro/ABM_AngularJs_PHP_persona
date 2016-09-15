@@ -1,0 +1,25 @@
+{
+  "name": "ABM",
+  "homepage": "https://github.com/LautaroRiveiro/LABIV---ABM_Personas",
+  "description": "ABM de personas",
+  "main": "index.html",
+  "authors": [
+    "Lautaro"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-file-upload": "^2.3.4",
+    "angular": "~1.4.6",
+    "bootstrap": "~3.3.5",
+    "jquery-form": "~3.46.0",
+    "jquery": "~2.1.4"
+  }
+}
