@@ -1,5 +1,5 @@
 
-var app = angular.module('ABMangularPHP', []);
+var app = angular.module('ABMangularPHP',['angularFileUpload']);
 
 
 app.controller('controlMenu', function($scope, $http) {
@@ -7,7 +7,7 @@ app.controller('controlMenu', function($scope, $http) {
 });
 
 
-app.controller('controlAlta', function($scope, $http) {
+app.controller('controlAlta', function($scope, $http, FileUploader) {
     $scope.DatoTest="**alta**";
 
     //Inicio las variables
@@ -45,7 +45,21 @@ app.controller('controlAlta', function($scope, $http) {
      	console.log( response);     			
  	});
     */
-  }
+
+    }
+
+    //--------------------------- FILE-UPLOAD --------------------------------------
+    $scope.uploader = new FileUploader({url:'PHP/upload.php'});
+    $scope.uploader.queueLimit = 1;
+    
+    $scope.cargar = function(){
+        $scope.uploader.uploadAll();
+    }
+
+    $scope.uploader.onCompleteAll = function() {
+        console.info('Se cargo con exito');
+    };
+
 });
 
 app.controller('controlGrilla', function($scope, $http) {

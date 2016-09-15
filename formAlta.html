@@ -14,7 +14,9 @@
 	<link rel="stylesheet" type="text/css" href="css/animacion.css">
 
 	<script SRC="bower_components/angular/angular.min.js" TYPE="text/javascript"></script>
+	<script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script> 
  	<script SRC="js/app.js" TYPE="text/javascript"></script>
+ 	<script SRC="js/directivas/ngThumb.js" TYPE="text/javascript"></script>
 
 </head>
 <body ng-app="ABMangularPHP" ng-controller="controlAlta">
@@ -161,6 +163,37 @@
 				<input type="hidden" name="idOculto" id="id" value="" />					
 				<input type="hidden" value="" id="idParaModificar" name="agregar" />
 				<input type="hidden" value="" id="hdnAgregar" name="agregar" />
+
+
+
+				<!-- ZONA FILE-UPLOAD -->
+				<input type="file" nv-file-select uploader="uploader" ng-show="uploader.queue.length == 0" required>
+
+					<!-- Muestro los datos de los archivos a cargar -->
+					<ul>
+				        <li ng-repeat="item in uploader.queue">
+				            Archivo: <span ng-bind="item.file.name"></span><br/>
+				            <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+				            
+				            <!-- boton upload. Lo puedo usar para carar las fotos o crear
+				            	mi propia funcion y llamar a uploader.uploadAll() -->
+				            <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+				                <span class="glyphicon glyphicon-upload"></span> Upload
+				            </button>
+
+				            <!-- boton cancel -->            
+				            <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+				                <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+				            </button>
+
+				            <!-- boton remove -->
+				            <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+				                <span class="glyphicon glyphicon-trash"></span> Remove
+				            </button>
+				        </li>		
+				    </ul>
+
+				<input type="button" class="btn btn-success" value="Cargar" ng-click="cargar()">
 			</form>
 		</div>
 	</div>
