@@ -1,0 +1,29 @@
+<div>
+		<!--?php require_once"partes/referencias.php" ;/**/?-->
+		<!--?php		
+			require_once"partes/barraDeMenu.php";
+		 ? -->
+	<ul class="nav nav-tabs">
+		<li  class="btn btn-info animated bounceInLeft" >
+			<a href="index.html">
+				 <span class="glyphicon glyphicon-list-alt">&nbsp;</span>
+				 Inicio 
+			</a>
+		</li>
+		<li class="btn btn-info animated bounceInLeft" >
+			<a href="formAlta.html">
+				<span class="glyphicon glyphicon-plus-sign">&nbsp;</span>
+				Alta
+			</a>
+		</li>
+		<li  class="btn btn-info animated bounceInLeft" >
+			<a href="formGrilla.html"> 
+				<span class="glyphicon glyphicon-th" >&nbsp;</span>
+					Grilla</a>
+				</li>
+		<span id="tituloBarra"  class="animated bounceInRight">{{DatoTest}}ABM - PHP - Angular Versión 1.0.1 &nbsp;&nbsp;&nbsp;</span>
+	</ul>
+
+	<!-- Agrego la vista de una de sus hijas. En "name" le paso el nombre de la view definida en el routing de app.js-->
+	<div ui-view name="abmmenu"></div>
+</div>

@@ -1,9 +1,110 @@
 
-var app = angular.module('ABMangularPHP',['angularFileUpload']);
+var app = angular.module('ABMangularPHP',['angularFileUpload', 'ui.router', 'satellizer']);
 
+//Configuración del ui-router
+app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
+
+    //Configuracion del auth
+    $authProvider.loginUrl = 'PHP/jwt/php/auth.php';
+    $authProvider.tokenName = 'miToken';
+    $authProvider.tokenPrefix = 'ABMangularPHP';
+    $authProvider.authHeaders = 'data';
+
+  // Now set up the states 
+  $stateProvider
+    .state('inicio', {
+      url: '/',
+      templateUrl: "inicio.html",
+      controller: 'controlInicio'
+    })
+    .state('login', {
+      url: '/login',
+      abstract: false,
+      templateUrl: 'login.html',
+      controller: 'controlLogin'
+    })
+    .state('abm', {
+      url: '/abm',
+      abstract: true,
+      templateUrl: 'abmMain.html',
+      controller: 'controlABMMain'
+    })
+    .state('abm.menu', {
+        url: '/menu',
+        views: {
+          'abmmenu': {
+            templateUrl: 'abmmenu.html',
+            controller: 'controlMenu'
+          }
+        }
+    })
+    //CONTINUAR
+
+
+         .state(
+          'persona.alta',{
+          url:'/alta',
+          views:
+          {
+            'contenido':
+            {
+                templateUrl:'formAlta.html',controller:'controlAlta'
+            }
+          }
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // For any unmatched url, redirect to /state1 
+    $urlRouterProvider.otherwise('/');
+});
 
 app.controller('controlMenu', function($scope, $http) {
     $scope.DatoTest="**Menu**";
+});
+
+
+app.controller('controlABMMain', function($scope, $http) {
+    $scope.DatoTest="**controlABMMain**";
+});
+
+
+
+app.controller('controlLogin', function($scope, $http, $auth) {
+    $scope.datos.hola = "HOLA";
+    $scope.Loguear = function(){
+        alert("HOLA");
+        $auth.login({
+            usuario: $scope.datos.usuario,
+            pass: $scope.datos.clave
+        })
+        .then(function(){
+            if($auth.isAuthenticated())
+                console.info("info login: ", $auth.getPayload());
+            else
+                console.info("info no-login: ", $auth.getPayload());
+        });
+    }
+
+});
+
+app.controller('controlInicio', function($scope, $http) {
+    $scope.DatoTest="**Inicio**";
 });
 
 

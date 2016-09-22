@@ -1,67 +1,30 @@
 <html>
 <head>
-	<title>ABM angular PHP</title>
-	  
-	<!--?php require_once"partes/referencias.php" ;/**/?-->
-
-    <!--script type="text/javascript" src="./bower_components/jquery/dist/jquery.js"></script-->
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ABM angular PHP</title>
+	  
+	<!-- Estilos -->
+    <!--script type="text/javascript" src="./bower_components/jquery/dist/jquery.js"></script-->
 	<link rel="icon" href="http://www.octavio.com.ar/favicon.ico">
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/estilo.css">
 	<link rel="stylesheet" type="text/css" href="css/animacion.css">
-	<!--final de Estilos-->    
+	<link href="css/landing-page.css" rel="stylesheet">
+	    
+	<!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
+	<!-- Script -->
 	<script SRC="bower_components/angular/angular.min.js" TYPE="text/javascript"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script> 
 	<script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script> 
  	<script SRC="js/app.js" TYPE="text/javascript"></script>
  	<script SRC="js/directivas/ngThumb.js" TYPE="text/javascript"></script>
-	
+ 	<script src="bower_components/satellizer/dist/satellizer.js"></script> 
 </head>
-<body ng-app="ABMangularPHP" ng-controller="controlMenu">
-	<!--?php		
-		require_once"partes/barraDeMenu.php";
-	 ?-->
- 
-    <ul class="nav nav-tabs">
-		<li  class="btn btn-info animated bounceInLeft" >
-			<a href="index.html">
-				 <span class="glyphicon glyphicon-list-alt">&nbsp;</span>
-				 Inicio 
-			</a>
-		</li>
-		<li class="btn btn-info animated bounceInLeft" >
-			<a href="formAlta.html">
-				<span class="glyphicon glyphicon-plus-sign">&nbsp;</span>
-				Alta
-			</a>
-		</li>
-		<li  class="btn btn-info animated bounceInLeft" >
-			<a href="formGrilla.html"> 
-				<span class="glyphicon glyphicon-th" >&nbsp;</span>
-					Grilla</a>
-				</li>
-		<span id="tituloBarra"  class="animated bounceInRight">{{DatoTest}}ABM - PHP - Angular Versión 1.0.1 &nbsp;&nbsp;&nbsp;</span>
-	</ul>
-	
-	<div class="container">
-		<div class="page-header">
-			<center><h1>ABM - PHP - Angular</h1> </center>     
-		</div>          
-		<div class="CajaInicio animated bounceInRight">
-			<h1>PERSONAS</h1>
-			<form id="FormIngreso">
-			    <a href="formAlta.html" class="list-group-item  list-group-item list-group-item-info">
-			      <h4 class="list-group-item-heading">Alta de Personas</h4>
-			    </a>
-				
-				<a href="formGrilla.html" class="list-group-item  list-group-item list-group-item-info">
-			      <h4 class="list-group-item-heading">Grilla de Personas</h4>
-			    </a>
-			</form>
-		</div>
-	</div>
-
+<body ng-app="ABMangularPHP">
+	 <div ui-view></div>
 </body>
 </html>

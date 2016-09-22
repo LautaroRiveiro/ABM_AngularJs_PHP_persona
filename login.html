@@ -1,0 +1,74 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Login</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="http://www.octavio.com.ar/favicon.ico">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/estilo.css">
+  <link rel="stylesheet" type="text/css" href="css/animacion.css">
+  <link href="css/landing-page.css" rel="stylesheet">
+  <!--final de Estilos-->    
+
+  <!-- Custom Fonts -->
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <script SRC="bower_components/angular/angular.min.js" TYPE="text/javascript"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script> 
+  <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script> 
+  <script SRC="js/app.js" TYPE="text/javascript"></script>
+  <script SRC="js/directivas/ngThumb.js" TYPE="text/javascript"></script>
+  <script src="bower_components/satellizer/dist/satellizer.js"></script>
+</head>
+<body id="pantalla"  ng-app="ABM" ng-controller="controlInicio">
+    <div class="login-page">
+      <div class="form">
+      	<h1><span>Ingreso</span></h1>
+        <form id="formLogin"class="login-form">
+            <input type="text" id="txtNom" name="usuario" placeholder="nombre" ng-model="datos.usuario"/>
+            <input type="email" id="txtMail" name="mail" placeholder="email" ng-model="datos.clave"/>
+            <input type="password" id="txtClave" name="clave" placeholder="clave"/>
+            <input type="button" value="Enviar" name="enviar" id="btnEnviar" ng-click="Loguear()"/>
+            {{DatoTest}}
+            {{datos.usuario}}
+        </form>
+      </div>
+    </div>
+</body>
+</html>
+
+<script>
+var app = angular.module('ABM',['ui.router', 'satellizer']);
+
+app.controller('controlInicio', function($scope, $http, $auth) {
+    $scope.DatoTest="**Inicio**";
+    $scope.datos = {};
+    $scope.Loguear = function(){
+       alert("HOLA");
+        $auth.login({                             //Llama por POST (http) al authProvider, que configuro en app.config
+            usuario: $scope.datos.usuario,
+            clave: $scope.datos.clave
+        })
+        .then(function(){
+            if($auth.isAuthenticated())
+                console.info("info login: ", $auth.getPayload());
+            else
+                console.info("info no-login: ", $auth.getPayload());
+        },
+        function(err){
+          console.log("Error de conexión", err);
+        });
+    }
+});
+
+app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
+    //Configuracion del auth
+    $authProvider.loginUrl = 'abm/PHP/jwt/php/auth.php'; //PONER LA RUTA DESDE CERO!!! abm/...
+    $authProvider.tokenName = 'miToken';
+    $authProvider.tokenPrefix = 'ABMangularPHP';
+    $authProvider.authHeader = 'data';
+});
+
+</script>
