@@ -10,47 +10,39 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
     $authProvider.tokenPrefix = 'ABMangularPHP';
     $authProvider.authHeaders = 'data';
 
-  // Now set up the states 
-  $stateProvider
+    // Now set up the states 
+    $stateProvider
     .state('inicio', {
-      url: '/',
-      templateUrl: "templates/inicio.html",
-      controller: 'controlInicio'
+        url: '/',
+        templateUrl: "templates/inicio.html",
+        controller: 'controlInicio'
     })
     .state('login', {
-      url: '/login',
-      abstract: false,
-      templateUrl: 'templates/login.html',
-      controller: 'controlLogin'
+        url: '/login',
+        templateUrl: 'templates/login.html',
+        controller: 'controlLogin'
     })
     .state('abm', {
-      url: '/abm',
-      abstract: true,
-      templateUrl: 'templates/abm.html',
-      controller: 'controlABMMain'
+        url: '/abm',
+        abstract: true,
+        templateUrl: 'templates/abm.html',
+        controller: 'controlABMMain'
     })
     .state('abm.menu', {
         url: '/menu',
-//        views: {
-//          'abmmenu': {
-//            templateUrl: 'templates/abm/menu.html',
-//            controller: 'controlMenu'
-//          }
-//        }
         templateUrl: 'templates/abm/menu.html',
         controller: 'controlMenu'
     })
-  .state('abm.form', {
-      url: '/form',
-//      views: {
-//          'abmform': {
-//              templateUrl: 'templates/abm/form.html',
-//              //controller: 'controlForm'
-//          }
-//      }
-      templateUrl: 'templates/abm/form.html',
-      controller: 'controlForm'
-  })
+    .state('abm.form', {
+        url: '/form',
+        templateUrl: 'templates/abm/form.html',
+        controller: 'controlForm'
+    })
+    .state('abm.grilla', {
+        url: '/grilla',
+        templateUrl: 'templates/abm/grilla.html',
+        controller: 'controlGrilla'
+    })
     //CONTINUAR
   
 
