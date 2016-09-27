@@ -14,31 +14,45 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
   $stateProvider
     .state('inicio', {
       url: '/',
-      templateUrl: "inicio.html",
+      templateUrl: "templates/inicio.html",
       controller: 'controlInicio'
     })
     .state('login', {
       url: '/login',
       abstract: false,
-      templateUrl: 'login.html',
+      templateUrl: 'templates/login.html',
       controller: 'controlLogin'
     })
     .state('abm', {
       url: '/abm',
       abstract: true,
-      templateUrl: 'abmMain.html',
+      templateUrl: 'templates/abm.html',
       controller: 'controlABMMain'
     })
     .state('abm.menu', {
         url: '/menu',
-        views: {
-          'abmmenu': {
-            templateUrl: 'abmmenu.html',
-            controller: 'controlMenu'
-          }
-        }
+//        views: {
+//          'abmmenu': {
+//            templateUrl: 'templates/abm/menu.html',
+//            controller: 'controlMenu'
+//          }
+//        }
+        templateUrl: 'templates/abm/menu.html',
+        controller: 'controlMenu'
     })
+  .state('abm.form', {
+      url: '/form',
+//      views: {
+//          'abmform': {
+//              templateUrl: 'templates/abm/form.html',
+//              //controller: 'controlForm'
+//          }
+//      }
+      templateUrl: 'templates/abm/form.html',
+      controller: 'controlForm'
+  })
     //CONTINUAR
+  
 
 
          .state(
