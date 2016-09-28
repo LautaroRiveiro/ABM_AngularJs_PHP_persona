@@ -5,10 +5,11 @@ var app = angular.module('ABMangularPHP',['angularFileUpload', 'ui.router', 'sat
 app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
     //Configuracion del auth
-    $authProvider.loginUrl = 'PHP/jwt/php/auth.php';
+    $authProvider.loginUrl = 'LABIV---ABM_Personas/PHP/jwt/php/auth.php'; //PONER LA RUTA DESDE CERO!!!
     $authProvider.tokenName = 'miToken';
     $authProvider.tokenPrefix = 'ABMangularPHP';
-    $authProvider.authHeaders = 'data';
+    $authProvider.authHeader = 'data';
+
 
     // Now set up the states 
     $stateProvider
@@ -43,42 +44,14 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
         templateUrl: 'templates/abm/grilla.html',
         controller: 'controlGrilla'
     })
-    //CONTINUAR
-  
-
-
-         .state(
-          'persona.alta',{
-          url:'/alta',
-          views:
-          {
-            'contenido':
-            {
-                templateUrl:'formAlta.html',controller:'controlAlta'
-            }
-          }
-        })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // For any unmatched url, redirect to /state1 
     $urlRouterProvider.otherwise('/');
 });
+
+
+//-------------------------- CONTROLADORES ----------------------------------//
+
 
 app.controller('controlMenu', function($scope, $http) {
     $scope.DatoTest="**Menu**";
@@ -90,24 +63,38 @@ app.controller('controlABMMain', function($scope, $http) {
 });
 
 
-
-app.controller('controlLogin', function($scope, $http, $auth) {
-    $scope.datos.hola = "HOLA";
+app.controller('controlLogin', function($scope, $http, $auth, $state){
+    
+    $scope.datos = {};
+    
+    /* ¿Qué hago en Loguear()?
+     Llamo por POST (http) al authProvider, que configuré en app.config.
+     Le paso como parámetro un objeto JSON que contiene las credenciales del login.
+     Si la conexión fue exitosa (no importa si el log existe), se ejecuta la función success del then(), donde recién ahí evalúo si existe o no el usuario y la clave.
+     Si hubo algún error en la conexión, se ejecuta la función de error del then(), donde muestro por consola el error.
+    */
     $scope.Loguear = function(){
-        alert("HOLA");
+
         $auth.login({
             usuario: $scope.datos.usuario,
-            pass: $scope.datos.clave
+            clave: $scope.datos.clave
         })
         .then(function(){
-            if($auth.isAuthenticated())
+            console.info($auth.isAuthenticated());
+            if($auth.isAuthenticated()){
+                //Si se logueó correctamente, isAuthenticated vale true. Entonces muestro por consola y redirijo al ABM.
                 console.info("info login: ", $auth.getPayload());
+                $state.go('abm.menu');
+            }
             else
                 console.info("info no-login: ", $auth.getPayload());
+        },
+        function(err){
+            console.log("Error de conexión", err);
         });
     }
-
 });
+
 
 app.controller('controlInicio', function($scope, $http) {
     $scope.DatoTest="**Inicio**";

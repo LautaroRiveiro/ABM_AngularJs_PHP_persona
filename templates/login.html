@@ -1,74 +1,62 @@
-<html>
 <head>
-	<meta charset="UTF-8">
-	<title>Login</title>
+    <meta charset="utf-8">
+    <meta content="origin" name="referrer">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="http://www.octavio.com.ar/favicon.ico">
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/estilo.css">
-  <link rel="stylesheet" type="text/css" href="css/animacion.css">
-  <link href="css/landing-page.css" rel="stylesheet">
-  <!--final de Estilos-->    
+    <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/frameworks-b54806b006ba52935377cfa698af8bb2200dd03318001e967d986314f4c11d29.css" integrity="sha256-tUgGsAa6UpNTd8+mmK+LsiAN0DMYAB6WfZhjFPTBHSk=" media="all" rel="stylesheet">
+    
+    <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github-8b2474817eaa20276db40d0e1b2273134aab8755285e953f318eae52da59a971.css" integrity="sha256-iyR0gX6qICdttA0OGyJzE0qrh1UoXpU/MY6uUtpZqXE=" media="all" rel="stylesheet">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=device-width">
 
-  <!-- Custom Fonts -->
-  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
-  <script SRC="bower_components/angular/angular.min.js" TYPE="text/javascript"></script>
-  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script> 
-  <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script> 
-  <script SRC="js/app.js" TYPE="text/javascript"></script>
-  <script SRC="js/directivas/ngThumb.js" TYPE="text/javascript"></script>
-  <script src="bower_components/satellizer/dist/satellizer.js"></script>
+    <title>Login ABM</title>
+    <link rel="icon" type="image/x-icon" href="img/login.png">
 </head>
-<body id="pantalla"  ng-app="ABM" ng-controller="controlInicio">
-    <div class="login-page">
-      <div class="form">
-      	<h1><span>Ingreso</span></h1>
-        <form id="formLogin"class="login-form">
-            <input type="text" id="txtNom" name="usuario" placeholder="nombre" ng-model="datos.usuario"/>
-            <input type="email" id="txtMail" name="mail" placeholder="email" ng-model="datos.clave"/>
-            <input type="password" id="txtClave" name="clave" placeholder="clave"/>
-            <input type="button" value="Enviar" name="enviar" id="btnEnviar" ng-click="Loguear()"/>
-            {{DatoTest}}
-            {{datos.usuario}}
-        </form>
-      </div>
+<body class="logged-out  env-production windows  session-authentication page-responsive min-width-0">
+    
+    <!--  Ícono superior  -->
+    <div class="header header-logged-out width-full pt-5 pb-4" role="banner" style="text-align: center;">
+        <img src="img/login.png" alt="" style="width: 60px;">
+    </div>
+
+    
+    <!-- LogIn -->
+    <div role="main" class="auth-form px-3" id="login">
+            <form accept-charset="UTF-8" action="/session" data-form-nonce="21e3386ec2587321a941df669503f88fa9f0894b" method="post">
+
+                <div class="auth-form-header p-0">
+                    <h1>Bienvenido</h1>
+                </div>
+
+                <div class="auth-form-body mt-3">
+                    <label for="usuario">Usuario</label>
+                    <input type="text" autocapitalize="off" autocorrect="off" autofocus="autofocus" class="form-control input-block" id="usuario" name="usuario" tabindex="1" ng-model="datos.usuario">
+
+                    <label for="password"> Clave
+                    <!-- <a href="#" class="label-link">Forgot password?</a> -->
+                    </label>
+                    <input type="password" class="form-control form-control input-block" id="password" name="password" tabindex="2" ng-model="datos.clave">
+                    
+                    <input type="button" class="btn btn-primary btn-block" data-disable-with="Signing in…" id="btnEnviar" name="enviar" tabindex="3" value="Ingresar" ng-click="Loguear()">
+                    {{datos.usuario}} | {{datos.clave}}
+                </div>
+            </form>
+
+            <p class="create-account-callout mt-3" style="text-align: center;">
+                No tiene cuenta?
+                <a href="#" data-ga-click="Sign in, switch to sign up">Regístrese</a>.
+            </p>
+            <div class="modal-backdrop js-touch-events"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="site-footer" role="contentinfo" style="text-align: center;">
+        <ul class="site-footer-links">
+            <li><a href="#" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+            <li><a href="#" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+            <li><a href="#" data-ga-click="Footer, go to security, text:security">Security</a></li>
+            <li><a href="#" data-ga-click="Footer, go to contact, text:contact">Contact</a></li>
+        </ul>
     </div>
 </body>
-</html>
-
-<script>
-var app = angular.module('ABM',['ui.router', 'satellizer']);
-
-app.controller('controlInicio', function($scope, $http, $auth) {
-    $scope.DatoTest="**Inicio**";
-    $scope.datos = {};
-    $scope.Loguear = function(){
-       alert("HOLA");
-        $auth.login({                             //Llama por POST (http) al authProvider, que configuro en app.config
-            usuario: $scope.datos.usuario,
-            clave: $scope.datos.clave
-        })
-        .then(function(){
-            if($auth.isAuthenticated())
-                console.info("info login: ", $auth.getPayload());
-            else
-                console.info("info no-login: ", $auth.getPayload());
-        },
-        function(err){
-          console.log("Error de conexión", err);
-        });
-    }
-});
-
-app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
-    //Configuracion del auth
-    $authProvider.loginUrl = 'abm/PHP/jwt/php/auth.php'; //PONER LA RUTA DESDE CERO!!! abm/...
-    $authProvider.tokenName = 'miToken';
-    $authProvider.tokenPrefix = 'ABMangularPHP';
-    $authProvider.authHeader = 'data';
-});
-
-</script>
