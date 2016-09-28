@@ -55,11 +55,24 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
 app.controller('controlMenu', function($scope, $http) {
     $scope.DatoTest="**Menu**";
+    //..
 });
 
 
-app.controller('controlABMMain', function($scope, $http) {
+app.controller('controlABMMain', function($scope, $http, $auth, $state) {
     $scope.DatoTest="**controlABMMain**";
+
+    if($auth.isAuthenticated()){
+        console.log("Sesión iniciada!");
+    }
+    else{
+        console.log("No hay sesión!");
+        $state.go('login');
+    }
+
+    $scope.isAuthenticated = function() {
+      return $auth.isAuthenticated();
+    };
 });
 
 
@@ -79,15 +92,19 @@ app.controller('controlLogin', function($scope, $http, $auth, $state){
             usuario: $scope.datos.usuario,
             clave: $scope.datos.clave
         })
-        .then(function(){
-            console.info($auth.isAuthenticated());
+        .then(function(response){
             if($auth.isAuthenticated()){
                 //Si se logueó correctamente, isAuthenticated vale true. Entonces muestro por consola y redirijo al ABM.
-                console.info("info login: ", $auth.getPayload());
+                console.log("Sesión iniciada!");
+                console.info("Info isAuthenticated: ", $auth.isAuthenticated());
+                console.info("Info getPayload: ", $auth.getPayload());
+                console.info("Info response: ", response);
                 $state.go('abm.menu');
             }
-            else
+            else{
+                console.info("Info isAuthenticated: ", $auth.isAuthenticated());
                 console.info("info no-login: ", $auth.getPayload());
+            }
         },
         function(err){
             console.log("Error de conexión", err);
@@ -98,10 +115,11 @@ app.controller('controlLogin', function($scope, $http, $auth, $state){
 
 app.controller('controlInicio', function($scope, $http) {
     $scope.DatoTest="**Inicio**";
+    //continuar
 });
 
 
-app.controller('controlAlta', function($scope, $http, FileUploader) {
+app.controller('controlForm', function($scope, $http, FileUploader) {
     $scope.DatoTest="**alta**";
 
     //Inicio las variables
@@ -153,8 +171,8 @@ app.controller('controlAlta', function($scope, $http, FileUploader) {
     $scope.uploader.onCompleteAll = function() {
         console.info('Se cargo con exito');
     };
-
 });
+
 
 app.controller('controlGrilla', function($scope, $http) {
   	$scope.DatoTest="**grilla**";
@@ -236,9 +254,4 @@ app.controller('controlGrilla', function($scope, $http) {
  		
  		console.log("Modificar"+id);
  	}
-
-
-
-
-
 });
