@@ -187,20 +187,23 @@ app.controller('controlGrilla', function($scope, $http) {
      	console.log( response);
  	});*/
 
-    $http.get("http://www.mocky.io/v2/57c822aa120000fc03e7699e")
-    .then(function(datos){
 
-        //Almaceno los datos recuperados en una variable de $scope.
-        console.info("datos: ",datos.data);
-        $scope.listadoDeDatos = datos.data;
 
-    },function(error){
+    /*
+        $http.get("http://www.mocky.io/v2/57c822aa120000fc03e7699e")
+        .then(function(datos){
 
-        //En caso de error, pongo como un array vacío la variable de $scope.
-        $scope.listadoDeDatos = [];
+            //Almaceno los datos recuperados en una variable de $scope.
+            console.info("datos: ",datos.data);
+            $scope.listadoDeDatos = datos.data;
 
-    });
+        },function(error){
 
+            //En caso de error, pongo como un array vacío la variable de $scope.
+            $scope.listadoDeDatos = [];
+
+        });
+    */
 
     /*
     https://docs.angularjs.org/api/ng/service/$http
