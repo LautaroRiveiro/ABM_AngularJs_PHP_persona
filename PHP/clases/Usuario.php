@@ -7,6 +7,7 @@ class Usuario{
 	public $email;
 	public $perfil;
 	public $password;
+	public $foto;
 
 	//CONSTRUCTOR
 	public function __construct($id = NULL)
@@ -17,6 +18,7 @@ class Usuario{
 			$this->nombre = $usuario->nombre;
 			$this->email = $usuario->email;
 			$this->perfil = $usuario->perfil;
+			$this->foto = $usuario->foto;
 		}
 	}
 
@@ -24,7 +26,7 @@ class Usuario{
 	public static function TraerUnUsuarioPorId($id){
 		$conexion = self::CrearConexion();
 
-		$sql = "SELECT U.id, U.nombre, U.email, U.perfil
+		$sql = "SELECT U.id, U.nombre, U.email, U.perfil, U.foto
 				FROM usuarios U
 				WHERE U.id = :id";
 
@@ -39,7 +41,7 @@ class Usuario{
 	public static function TraerTodosLosUsuarios(){
 		$conexion = self::CrearConexion();
 
-		$sql = "SELECT U.id, U.nombre, U.email, U.perfil
+		$sql = "SELECT U.id, U.nombre, U.email, U.perfil, U.foto
 				FROM usuarios U";
 
 		$consulta = $conexion->prepare($sql);
@@ -52,7 +54,7 @@ class Usuario{
 	public static function TraerUsuarioLogueado($usuario){
 		$conexion = self::CrearConexion();
 
-		$sql = "SELECT U.id, U.nombre, U.email, U.perfil
+		$sql = "SELECT U.id, U.nombre, U.email, U.perfil, U.foto
 				FROM usuarios U
 				WHERE U.email = :email AND U.password = :pass";
 
@@ -68,14 +70,15 @@ class Usuario{
 	public static function Agregar($usuario){
 		$conexion = self::CrearConexion();
 
-		$sql = "INSERT INTO usuarios (nombre, email, password, perfil)
-				VALUES (:nombre, :email, :pass, :perfil)";
+		$sql = "INSERT INTO usuarios (nombre, email, password, perfil, foto)
+				VALUES (:nombre, :email, :pass, :perfil, :foto)";
 
 		$consulta = $conexion->prepare($sql);
 		$consulta->bindValue(":nombre", $usuario->nombre, PDO::PARAM_STR);
 		$consulta->bindValue(":email", $usuario->email, PDO::PARAM_STR);
 		$consulta->bindValue(":pass", $usuario->pass, PDO::PARAM_STR);
 		$consulta->bindValue(":perfil", $usuario->perfil, PDO::PARAM_STR);
+		$consulta->bindValue(":foto", $usuario->foto, PDO::PARAM_STR);
 		$consulta->execute();
 
 		$idAgregado = $conexion->lastInsertId();
@@ -86,7 +89,7 @@ class Usuario{
 		$conexion = self::CrearConexion();
 
 		$sql = "UPDATE usuarios
-				SET nombre = :nombre, email = :email, password = :pass, perfil = :perfil
+				SET nombre = :nombre, email = :email, password = :pass, perfil = :perfil, foto = :foto
 				WHERE id = :id";
 
 		$consulta = $conexion->prepare($sql);
@@ -94,6 +97,7 @@ class Usuario{
 		$consulta->bindValue(":email", $usuario->email, PDO::PARAM_STR);
 		$consulta->bindValue(":pass", $usuario->pass, PDO::PARAM_STR);
 		$consulta->bindValue(":perfil", $usuario->perfil, PDO::PARAM_STR);
+		$consulta->bindValue(":foto", $usuario->foto, PDO::PARAM_STR);
 		$consulta->bindValue(":id", $usuario->id, PDO::PARAM_INT);
 		$consulta->execute();
 
@@ -118,7 +122,7 @@ class Usuario{
 	public static function CrearConexion(){
 		try
 		{
-			$conexion = new PDO("mysql:host=localhost;dbname=login_pdo;charset=utf8;",'root','');
+			$conexion = new PDO("mysql:host=localhost;dbname=abm;charset=utf8;",'root','');
 			return $conexion;
 		}
 		catch (Exception $e) {

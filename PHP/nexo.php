@@ -1,24 +1,37 @@
 <?php 
-	include "clases/Personas.php";
+	include "clases/Usuario.php";
 	
-	// $_GET['accion'];
 	if(isset($_GET['accion']))
 	{
 		$accion=$_GET['accion'];
 		if($accion=="traer")
 		{
 			$respuesta= array();
-			//$respuesta['listado']=Persona::TraerPersonasTest();
-			$respuesta['listado']=Persona::TraerTodasLasPersonas();
-			//var_dump(Persona::TraerTodasLasPersonas());
+			$respuesta['listado']=Usuario::TraerTodosLosUsuarios();
 			$arrayJson = json_encode($respuesta);
 			echo  $arrayJson;
 		}
+		else if($accion=="insertar")
+		{
+			$respuesta= array();
+			$usuario = isset($_GET["persona"]) ? json_decode($_GET['persona']) : NULL;
+			$respuesta['listado']=Usuario::Agregar($usuario);
+			$arrayJson = json_encode($respuesta);
+			echo  $arrayJson;
+		}
+		else if($accion=="borrar")
+		{
+			$respuesta= array();
+			$usuario = isset($_GET["persona"]) ? $_GET['persona'] : NULL;
+			$respuesta['listado']=Usuario::Eliminar($usuario);	
+			$arrayJson = json_encode($respuesta);
+			echo  $arrayJson;
+		}
+		return;
 	}
-	else
-	{
+	else{
 		//var_dump($_REQUEST);
-		echo "<br>";
+		echo "No está conectando el $GET";
 		var_dump($_POST);
 		/*
 		$DatosPorPost = file_get_contents("php://input");
