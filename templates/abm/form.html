@@ -44,7 +44,7 @@
             <!-- E MAIL -->
             <div class="form-group" ng-class="{'has-error has-feedback': !ValidarText('correo'), 'has-success has-feedback': formAlta.correo.$valid}">
                 <label for="correo" class="control-label">Correo</label>
-                <input type="email" class="form-control" name="correo" id="correo" ng-model="persona.correo" placeholder="Correo electrónico" required/>
+                <input type="email" class="form-control" name="correo" id="correo" ng-model="persona.email" placeholder="Correo electrónico" required/>
                 <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove': !ValidarText('correo'), 'glyphicon-ok': formAlta.correo.$valid}"></span>
                 <span ng-if="!ValidarText('correo')">
                     <small class="help-block" ng-show="formAlta.correo.$error.required">* Este campo es obligatorio</small>
@@ -89,7 +89,7 @@
             <!-- PASSWORD -->
             <div class="form-group" ng-class="{'has-error has-feedback': !ValidarText('clave'), 'has-success has-feedback': formAlta.clave.$valid}">
                 <label for="clave" class="control-label">Clave</label>
-                <input type="password" class="form-control" name="clave" id="clave" ng-model="persona.clave" placeholder="Ingrese Clave" required minlength=4/>
+                <input type="password" class="form-control" name="clave" id="clave" ng-model="persona.pass" placeholder="Ingrese Clave" required minlength=4/>
                 <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove': !ValidarText('clave'), 'glyphicon-ok': formAlta.clave.$valid}"></span>
                 <span ng-if="!ValidarText('clave')">
                     <small class="help-block" ng-show="formAlta.clave.$error.required">* Este campo es obligatorio</small>
@@ -99,7 +99,7 @@
             <div class="form-group" ng-class="{'has-error has-feedback': !ValidarText('confirmarClave'), 'has-success has-feedback': formAlta.confirmarClave.$valid}">
                 <input type="password" class="form-control" name="confirmarClave" id="confirmarClave" ng-model="persona.confirmarClave" placeholder="Reingrese Clave" required minlength=4 ng-disabled="formAlta.clave.$invalid"/>
                 <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove': !ValidarText('confirmarClave'), 'glyphicon-ok': formAlta.confirmarClave.$valid}"></span>
-                <small class="help-block" ng-show="formAlta.confirmarClave.$dirty && (persona.clave != persona.confirmarClave)">Las claves no coinciden</small>
+                <small class="help-block" ng-show="formAlta.confirmarClave.$dirty && (persona.pass != persona.confirmarClave)">Las claves no coinciden</small>
             </div>
 
             <!--
@@ -137,8 +137,11 @@
             <!-- <input type="button" class="btn btn-success" value="Cargar" ng-click="cargar()"> -->
 
 
+<!-- 
+            <button class="btn btn-info " name="guardar" ng-click="Guardar()" ng-disabled="formAlta.$invalid || (persona.pass != persona.confirmarClave)"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+ -->
+            <button class="btn btn-info " name="guardar" ng-click="Guardar()"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
 
-            <button class="btn btn-info " name="guardar" ng-click="Guardar()" ng-disabled="formAlta.$invalid || (persona.clave != persona.confirmarClave)"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
             <pre>{{persona | json}}</pre>
 
             <input type="hidden" name="idOculto" id="id" value="" />                    

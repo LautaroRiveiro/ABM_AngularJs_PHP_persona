@@ -41,20 +41,39 @@ $app->get('/', function ($request, $response, $args) {
     return $response;
 });
 
+//CREO UNA FUNCIÓN PARA LA RUTA /usuarios QUE ME IMPRIMA TODOS LOS USUARIOS DE LA BASE
 $app->get('/usuarios[/]', function ($request, $response, $args) {
-    $response->write("Lista de usuarios");
-    return $response;
-});
-
-//CREO UNA FUNCIÓN PARA LA RUTA /personas QUE ME IMPRIMA TODOS LOS USUARIOS DE LA BASE
-$app->get('/personas[/]', function ($request, $response, $args) {
     //Creo un array con las respuestas que quiero devolver
     $respuesta["listado"] = Usuario::TraerTodosLosUsuarios();
-    $respuesta["titulo"] = "Lista de personas";
+    $respuesta["titulo"] = "Lista de usuarios";
     //Lo envío al cliente por $response->wirte, haciendo json_encode del array.
     $response->write(json_encode($respuesta));
     return $response;
 });
+
+$app->post('/usuario/{persona}', function ($request, $response, $args) {
+
+    $persona = $request->getAttribute('persona');
+
+//    $respuesta= array();
+//    $usuario = isset($_POST["persona"]) ? json_decode($_POST['persona']) : NULL;
+    //$respuesta['listado']=Usuario::Agregar($usuario);
+//    $arrayJson = json_encode($respuesta);
+//    echo  $arrayJson;
+
+    $response->write($request->getAttribute('persona'));
+    //$response->write(var_dump($request));
+    //$response->write(var_dump(json_decode($request->bodyParsed)));
+    //var_dump($args);
+    return $response;
+});
+
+
+
+
+
+
+
 
 $app->get('/usuario[/{id}[/{name}]]', function ($request, $response, $args) {
     $response->write("Datos usuario ");

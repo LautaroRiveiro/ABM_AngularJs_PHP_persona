@@ -129,14 +129,15 @@ app.controller('controlForm', function($scope, $http, FileUploader) {
     $scope.persona.nombre;
     $scope.persona.apellido;
     $scope.persona.dni;
-    $scope.persona.correo;
+    $scope.persona.email;
     $scope.persona.estadoCivil;
     $scope.persona.fechaNacimiento;
     $scope.persona.edad;
     $scope.persona.sexo;
     $scope.persona.foto = "sinfoto.jpg";
-    $scope.persona.clave;
+    $scope.persona.pass;
     $scope.persona.confirmarClave;
+    $scope.persona.perfil = "usuario";
 
     $scope.uploader = new FileUploader({url:'PHP/upload.php'});
     $scope.uploader.queueLimit = 1;
@@ -160,7 +161,11 @@ app.controller('controlForm', function($scope, $http, FileUploader) {
         console.log($scope.persona);
 
         //$http.post('PHP/nexo.php', { datos: {accion :"insertar",persona:$scope.persona}})
-        $http.get('PHP/nexo.php', { params: {accion: "insertar", persona: $scope.persona}})
+        //$http.get('PHP/nexo.php', { params: {accion: "insertar", persona: $scope.persona}})// -> Sin Slim Framework
+
+        //Le tendria que pasar el objeto hecho string como parametro. Para eso lo paso como ruta.
+        //$http.post('ws1/usuario/'+JSON.stringify($scope.persona))
+        $http.post('ws1/usuario/'+"Lautaro")
         .then(function(respuesta) {         
             //aca se ejetuca si retorno sin errores         
             console.log(respuesta.data);
@@ -189,8 +194,8 @@ app.controller('controlGrilla', function($scope, $http) {
     $scope.ListadoPersonas = [];
     
     //EJEMPLO PARA TRAER DATOS POR HTTP:
-    //$http.get('PHP/nexo.php', { params: {accion :"traer"}})
-    $http.get('ws1/personas')
+    //$http.get('PHP/nexo.php', { params: {accion :"traer"}}) -> Sin Slim Framework
+    $http.get('ws1/usuarios')
     .then(function(respuesta) {         
         $scope.ListadoPersonas = respuesta.data.listado;
         console.log(respuesta.data.listado);
