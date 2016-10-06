@@ -5,7 +5,7 @@ var app = angular.module('ABMangularPHP',['angularFileUpload', 'ui.router', 'sat
 app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
     //Configuracion del auth
-    $authProvider.loginUrl = 'LABIV---ABM_Personas/PHP/jwt/php/auth.php'; //PONER LA RUTA DESDE CERO!!!
+    $authProvider.loginUrl = 'ABM/PHP/jwt/php/auth.php'; //PONER LA RUTA DESDE CERO!!!
     $authProvider.tokenName = 'miToken';
     $authProvider.tokenPrefix = 'ABMangularPHP';
     $authProvider.authHeader = 'data';
@@ -62,6 +62,7 @@ app.controller('controlMenu', function($scope, $http) {
 app.controller('controlABMMain', function($scope, $http, $auth, $state) {
     $scope.DatoTest="**controlABMMain**";
 
+    /*
     if($auth.isAuthenticated()){
         console.log("Sesión iniciada!");
     }
@@ -69,6 +70,7 @@ app.controller('controlABMMain', function($scope, $http, $auth, $state) {
         console.log("No hay sesión!");
         $state.go('login');
     }
+    */
 
     $scope.isAuthenticated = function() {
       return $auth.isAuthenticated();
@@ -187,10 +189,12 @@ app.controller('controlGrilla', function($scope, $http) {
     $scope.ListadoPersonas = [];
     
     //EJEMPLO PARA TRAER DATOS POR HTTP:
-    $http.get('PHP/nexo.php', { params: {accion :"traer"}})
+    //$http.get('PHP/nexo.php', { params: {accion :"traer"}})
+    $http.get('ws1/personas')
     .then(function(respuesta) {         
         $scope.ListadoPersonas = respuesta.data.listado;
         console.log(respuesta.data.listado);
+        console.info(respuesta);
     },function errorCallback(response) {
         $scope.ListadoPersonas= [];
         console.log( response);
